@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ekta Ultra Birthday 💎</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --gold:#f5d27a;
+  --pink:#ff8fb1;
+  --purple:#7b5cff;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  font-family:'Poppins',sans-serif;
+  background:#0b0a14;
+  color:white;
+  overflow-x:hidden;
+}
+
+/* INTRO */
+#intro{
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:#000;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:999;
+  flex-direction:column;
+}
+
+#intro h1{
+  font-family:'Cinzel';
+  font-size:2rem;
+  margin-bottom:20px;
+}
+
+.enter-btn{
+  padding:12px 25px;
+  border:none;
+  border-radius:30px;
+  background:linear-gradient(45deg,var(--gold),var(--pink));
+  cursor:pointer;
+}
+
+/* HERO */
+.hero{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  text-align:center;
+}
+
+.typing{
+  font-size:3rem;
+  font-family:'Cinzel';
+  background:linear-gradient(45deg,var(--gold),var(--pink));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+/* GLASS */
+.glass{
+  background:rgba(255,255,255,0.05);
+  padding:30px;
+  border-radius:20px;
+  margin:30px;
+}
+
+/* HEART GAME */
+.game{
+  text-align:center;
+}
+
+.heart{
+  position:absolute;
+  font-size:25px;
+  cursor:pointer;
+}
+
+/* GALLERY */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:10px;
+}
+
+.grid img{
+  width:100%;
+  border-radius:10px;
+}
+
+/* SECRET */
+.secret{
+  display:none;
+}
+
+/* MUSIC */
+.music{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- INTRO -->
+<div id="intro">
+  <h1>✨ A Special Surprise ✨</h1>
+  <button class="enter-btn" onclick="enterSite()">Enter 💖</button>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <h1 class="typing" id="typing"></h1>
+  <p>You are something truly special ✨</p>
+</section>
+
+<!-- MESSAGE -->
+<div class="glass">
+  <h2>💌 Message</h2>
+  <p>Ekta, you are not just a friend… you are a whole emotion 💖</p>
+</div>
+
+<!-- COUNTDOWN -->
+<div class="glass">
+  <h2>🎂 Countdown</h2>
+  <p id="count"></p>
+</div>
+
+<!-- GALLERY -->
+<div class="glass">
+  <h2>✨ Vibes</h2>
+  <div class="grid">
+    <img src="https://source.unsplash.com/300x300/?birthday">
+    <img src="https://source.unsplash.com/300x300/?friends">
+    <img src="https://source.unsplash.com/300x300/?flowers">
+    <img src="https://source.unsplash.com/300x300/?night">
+  </div>
+</div>
+
+<!-- GAME -->
+<div class="glass game">
+  <h2>🎮 Catch Hearts Game</h2>
+  <p>Score: <span id="score">0</span></p>
+</div>
+
+<!-- SECRET -->
+<div class="glass secret" id="secret">
+  <h2>💖 Secret Letter</h2>
+  <p>You mean more than words can ever say…</p>
+</div>
+
+<!-- MUSIC -->
+<div class="music">
+  <button onclick="toggleMusic()">🎵</button>
+  <audio id="audio" src="https://www.bensound.com/bensound-music/bensound-romantic.mp3"></audio>
+</div>
+
+<script>
+// ENTER
+function enterSite(){
+  document.getElementById("intro").style.display="none";
+  startTyping();
+}
+
+// TYPING
+let text="Happy Birthday Ekta 🎉";
+let i=0;
+function startTyping(){
+  let el=document.getElementById("typing");
+  let typing=setInterval(()=>{
+    el.innerHTML+=text[i];
+    i++;
+    if(i>=text.length) clearInterval(typing);
+  },100);
+}
+
+// COUNTDOWN
+setInterval(()=>{
+  let d=new Date("May 24, 2026").getTime()-new Date().getTime();
+  document.getElementById("count").innerText=Math.floor(d/1000)+" seconds left";
+},1000);
+
+// GAME
+let score=0;
+setInterval(()=>{
+  let h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="💖";
+  h.style.left=Math.random()*100+"%";
+  h.style.top="100%";
+  document.body.appendChild(h);
+
+  let fall=setInterval(()=>{
+    h.style.top=parseFloat(h.style.top)-1+"%";
+    if(parseFloat(h.style.top)<0){
+      h.remove();
+      clearInterval(fall);
+    }
+  },20);
+
+  h.onclick=()=>{
+    score++;
+    document.getElementById("score").innerText=score;
+    h.remove();
+    if(score==10) document.getElementById("secret").style.display="block";
+  }
+},1000);
+
+// MUSIC
+let play=false;
+function toggleMusic(){
+  let a=document.getElementById("audio");
+  if(!play){a.play();play=true;}
+  else{a.pause();play=false;}
+}
+</script>
+
+</body>
+      </html>
